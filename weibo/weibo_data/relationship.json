@@ -1,0 +1,16 @@
+{
+  "source": {
+    "followed_by": true,
+    "following": false,
+    "id": 2328694317,
+    "notifications_enabled": false,
+    "screen_name": "c小帽_"
+  },
+  "target": {
+    "followed_by": false,
+    "following": true,
+    "id": 1299907847,
+    "notifications_enabled": false,
+    "screen_name": "心哥635"
+  }
+}

@@ -1,0 +1,66 @@
+Resources:
+  default:
+    Type: TencentCloud::Serverless::Namespace
+    weread:
+      Type: TencentCloud::Serverless::Function
+      Properties:
+        CodeUri: ./
+        Type: Event
+        Description: 微信读书组队
+        Role: QCS_SCFExcuteRole
+        Environment:
+          Variables:
+            db_url: "mongodb+srv://"
+            SecretId: ''
+            SecretKey: ''
+            client_id: ""  #weibo
+            client_secret: ""  #weibo
+            grant_type: "authorization_code"
+            redirect_uri: "https://weread.qing.workers.dev/login"
+            db: "test"
+            table: "ws"
+            sendbackHost0: "https://service-d6p7no2y-1252957949.ap-hongkong.apigateway.myqcloud.com/test/hello"
+            sendbackHost: "http://set-hk_adaptor_set1.cb-guangzhou.apigateway.tencentyun.com/api-jvucznm6"
+            internalDomain: "http://set-hk_adaptor_set1.cb-guangzhou.apigateway.tencentyun.com/api-jvucznm6"
+            front_end : "wss://service-afbgj3k2-1252957949.ap-hongkong.apigateway.myqcloud.com/release/ws"
+            ApiId: "api-jvucznm6"
+            domain: "service-afbgj3k2-1252957949.ap-hongkong.apigateway.myqcloud.com"
+            Bucket: 'ttt-1252957949'
+            Region: 'ap-hongkong'
+            Prefix: 'music/'
+        Handler: api.router   #入口文件
+        MemorySize: 128
+        Runtime: Nodejs8.9
+        Timeout: 10
+        #VpcConfig:
+        #    VpcId: 'vpc-qdqc5k2p'
+        #    SubnetId: 'subnet-pad6l61i'
+        #Events:
+        #    timer:
+        #        Type: Timer
+        #        Properties:
+        #            CronExpression: '*/5 * * * *'
+        #            Enable: True
+        #    cli-appid.cos.ap-beijing.myqcloud.com: # full bucket name
+        #        Type: COS
+        #        Properties:
+        #            Bucket: cli-appid.cos.ap-beijing.myqcloud.com
+        #            Filter:
+        #                Prefix: filterdir/
+        #                Suffix: .jpg
+        #            Events: cos:ObjectCreated:*
+        #            Enable: True
+        #    topic:            # topic name
+        #        Type: CMQ
+        #        Properties:
+        #            Name: qname
+            weread_apigw:  # ${FunctionName} + '_apigw'
+                Type: APIGW
+                Properties:
+                    StageName: release
+                    ServiceId:
+                    HttpMethod: ANY
+
+Globals:
+  Function:
+    Timeout: 10
